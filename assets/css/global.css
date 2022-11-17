@@ -3,11 +3,16 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
+
 body {
     background-color: #f6f8fc;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100%;
 }
 
 .main-header__content {
@@ -33,10 +38,6 @@ body {
     padding: 1rem;
     background-color: #fff;
     margin: 0 0 0.7rem 0;
-}
-
-.main-footer {
-    margin-top: auto;
 }
 
 .main-footer__content {
