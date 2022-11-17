@@ -4,7 +4,7 @@ const pokeApi = {}
 // converte o pokemon da API para nosso modelo de Pokemon
 function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon()
-    pokemon.number = pokeDetail.order
+    pokemon.number = pokeDetail.id
     pokemon.name = pokeDetail.name
 
     const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
@@ -27,7 +27,7 @@ pokeApi.getPokemonDetails = async (pokemon) => {
 
 
 // consumindo a API
-pokeApi.getPokemons = async (offset = 0, limit = 5) => {
+pokeApi.getPokemons = async (offset, limit) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     
     return fetch(url)
