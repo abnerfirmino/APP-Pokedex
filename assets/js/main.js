@@ -1,29 +1,38 @@
+const pokemonList = document.getElementById('pokemonList')
+const loadMoreButton = document.getElementById('loadMoreButton')
+const limit = 5
+let offset = 0
 
-// Função que converte cada item da lista de PoKemons em HTML
-function convertPokemonToLi(pokemon) {
-    let name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-    return `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${name}</span>
+function loadPokemonItems(offset, limit) {
+    // Função que converte cada item da lista de PoKemons em HTML
+    function convertPokemonToLi(pokemon) {
+        let name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+        return `
+            <li class="pokemon ${pokemon.type}">
+                <span class="number">#${pokemon.number}</span>
+                <span class="name">${name}</span>
 
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
+                <div class="detail">
+                    <ol class="types">
+                        ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                    </ol>
 
-                <img src="${pokemon.photo}"
-                    alt="${name}">
-            </div>
-        </li>
-    `
+                    <img src="${pokemon.photo}"
+                        alt="${name}">
+                </div>
+            </li>
+        `
+    }
+
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+        const newHtml = pokemons.map(convertPokemonToLi).join('')
+        pokemonList.innerHTML += newHtml
+    })
 }
 
-// lista de pokemons
-const pokemonList = document.getElementById('pokemonList')
+loadPokemonItems(offset, limit)
 
-pokeApi.getPokemons().then((pokemons = []) => {
-
-    pokemonList.innerHTML += pokemons.map((pokemon) => convertPokemonToLi(pokemon))
-        .join('')
+loadMoreButton.addEventListener('click', () => {
+    offset += limit
+    loadPokemonItems(offset, limit)
 })
