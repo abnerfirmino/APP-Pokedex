@@ -7,7 +7,6 @@ html {
     height: 100%;
 }
 
-
 body {
     background-color: #f6f8fc;
 
@@ -17,9 +16,12 @@ body {
     height: 100%;
 }
 
+.main-header {
+    margin-bottom: 0.7rem;
+}
+
 .main-header__content {
     background-color: #fff;
-    margin-bottom: 0.7rem;
 }
 
 .main-header__logo {
